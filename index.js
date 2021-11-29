@@ -418,7 +418,7 @@ ${inject.body || ''}
     const escapePath = arg => arg.replace(/(\s+)/g, '\\$1')
 
     const params = [
-      '-o', escapePath(output),
+      '-o', `"${escapePath(output)}"`,
       '--fps', Math.min(gifskiOptions.fps || outputFps, 50), // most of viewers do not support gifs with FPS > 50
       gifskiOptions.fast && '--fast',
       '--quality', gifskiOptions.quality,
@@ -444,7 +444,7 @@ ${inject.body || ''}
       '-lossy',
       '-d', Math.round(1000 / outputFps),
       framePattern,
-      '-o', escapePath(output)
+      '-o', `"${escapePath(output)}"`
     ].filter(Boolean)
 
     const executable = process.env.IMG2WEBP_PATH || 'img2webp'
