@@ -59,6 +59,7 @@ const injectLottie = `
  * @return {Promise}
  */
 module.exports = async (opts) => {
+	debugger;
   const {
     output,
     animationData = undefined,
@@ -441,7 +442,11 @@ ${inject.body || ''}
     const escapePath = arg => arg.replace(/(\s+)/g, '\\$1')
 
     const params = [
+	  '-min_size',
       '-lossy',
+	  '-q 60',
+      '-m 5',
+	  '-loop 0',
       '-d', Math.round(1000 / outputFps),
       framePattern,
       '-o', escapePath(output)
