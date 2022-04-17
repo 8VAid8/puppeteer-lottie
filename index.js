@@ -59,7 +59,7 @@ const injectLottie = `
  * @return {Promise}
  */
 module.exports = async (opts) => {
-	debugger;
+	// debugger;
   const {
     output,
     animationData = undefined,
