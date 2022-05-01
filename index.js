@@ -406,7 +406,7 @@ ${inject.body || ''}
   }
 
   await rootHandle.dispose()
-  if (opts.browser) {
+  if (opts.browser || instance) {
     await page.close()
   } else {
     await browser.close()
