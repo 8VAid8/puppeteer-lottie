@@ -21,6 +21,15 @@ const injectLottie = `
 </script>
 `
 
+const kill  = require('tree-kill');
+process.on('exit', (code) => {
+  kill(child.pid, 'SIGTERM', function(err){
+    kill(child.pid, 'SIGKILL', function(err){
+      process.kill(-child.pid);
+    });
+  });
+});
+
 /**
  * Renders the given Lottie animation via Puppeteer.
  *
