@@ -21,7 +21,7 @@ const injectLottie = `
 </script>
 `
 
-const kill  = require('tree-kill');
+const kill = require('tree-kill');
 process.on('exit', (code) => {
   kill(child.pid, 'SIGTERM', function(err){
     kill(child.pid, 'SIGKILL', function(err){
@@ -29,6 +29,8 @@ process.on('exit', (code) => {
     });
   });
 });
+
+let instance = null
 
 /**
  * Renders the given Lottie animation via Puppeteer.
@@ -67,6 +69,7 @@ process.on('exit', (code) => {
  * @param {object} [opts.progress] - Optional callback to report rendering progress, will be called with the following parameters: (frame, totalFrames)
  * @return {Promise}
  */
+
 module.exports = async (opts) => {
 	// debugger;
   const {
@@ -257,9 +260,18 @@ ${inject.body || ''}
 
   const spinnerB = !quiet && ora('Loading browser').start()
 
-  const browser = opts.browser || await puppeteer.launch({
-    ...puppeteerOptions
-  })
+  let browser
+  if (!instance) {
+    // instance = await pptr.launch();
+    instance = opts.browser || await puppeteer.launch({
+      ...puppeteerOptions
+    })
+  }
+  browser = instance
+
+  // const browser = opts.browser ||  || await puppeteer.launch({
+  //   ...puppeteerOptions
+  // })
   const page = await browser.newPage()
 
   page.on('console', console.log.bind(console))
