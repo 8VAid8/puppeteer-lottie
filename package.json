@@ -45,6 +45,7 @@
     "pluralize": "^7.0.0",
     "puppeteer": "^13.7.0",
     "sprintf-js": "^1.1.2",
-    "tempy": "^0.3.0"
+    "tempy": "^0.3.0",
+    "tree-kill": "^1.2.2"
   }
 }

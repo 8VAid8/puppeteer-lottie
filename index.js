@@ -271,7 +271,8 @@ ${inject.body || ''}
     height
   })
   await page.setContent(html)
-  await page.waitForSelector('.ready')
+  await page.waitForSelector('.ready').then(() => console.log('textdivresp_ololo'))
+
   const duration = await page.evaluate(() => duration)
 
   const outputNumFrames = outputFps * duration
