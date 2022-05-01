@@ -10,6 +10,7 @@ const puppeteer = require('puppeteer')
 const tempy = require('tempy')
 const { spawn } = require('child_process')
 const { sprintf } = require('sprintf-js')
+const {getBrowserInstance} = require('./instance')
 
 const { cssifyObject } = require('css-in-js-utils')
 
@@ -251,14 +252,17 @@ ${inject.body || ''}
 
   const spinnerB = !quiet && ora('Loading browser').start()
 
-  let browser
-  if (!instance) {
-    // instance = await pptr.launch();
-    instance = opts.browser || await puppeteer.launch({
-      ...puppeteerOptions
-    })
-  }
-  browser = instance
+  // let browser
+  // if (!instance) {
+  //   // instance = await pptr.launch();
+  //   instance = opts.browser || await puppeteer.launch({
+  //     ...puppeteerOptions
+  //   })
+  // }
+
+  const browser = opts.browser || await getBrowserInstance({
+    ...puppeteerOptions
+  }) // this will reuse single browser
 
   // const browser = opts.browser ||  || await puppeteer.launch({
   //   ...puppeteerOptions
@@ -406,11 +410,11 @@ ${inject.body || ''}
   }
 
   await rootHandle.dispose()
-  if (opts.browser || instance) {
-    await page.close()
-  } else {
-    await browser.close()
-  }
+  // if (opts.browser) {
+  await page.close()
+  // } else {
+  // await browser.close()
+  // }
 
   if (spinnerR) {
     spinnerR.succeed()
