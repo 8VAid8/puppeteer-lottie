@@ -22,8 +22,6 @@ const injectLottie = `
 </script>
 `
 
-let instance = null
-
 /**
  * Renders the given Lottie animation via Puppeteer.
  *
@@ -251,14 +249,6 @@ ${inject.body || ''}
   // fs.writeFileSync('test.html', html)
 
   const spinnerB = !quiet && ora('Loading browser').start()
-
-  // let browser
-  // if (!instance) {
-  //   // instance = await pptr.launch();
-  //   instance = opts.browser || await puppeteer.launch({
-  //     ...puppeteerOptions
-  //   })
-  // }
 
   const browser = opts.browser || await getBrowserInstance({
     ...puppeteerOptions
